@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DETALIO — маркетплейс автозапчастин</title>
+<style>
+:root{
+  --navy:#061b39; --navy2:#082e5d; --blue:#069cf0; --cyan:#18c6ff;
+  --text:#09264d; --muted:#71829b; --line:#e4edf7; --bg:#f7fbff; --white:#fff;
+  --shadow:0 7px 24px rgba(18,77,126,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:#fff;color:var(--text)}
+button,input{font:inherit}
+a{text-decoration:none;color:inherit}
+.container{max-width:1372px;margin:auto;padding:0 22px}
+.top{height:66px;background:linear-gradient(90deg,#06172f,#092e5d);color:#fff}
+.top .inner{height:100%;display:flex;align-items:center;gap:34px}
+.logo{display:flex;align-items:center;gap:10px;min-width:265px}
+.logo-mark{width:58px;height:50px;border-radius:18px 25px 25px 18px;background:linear-gradient(145deg,#0bd5ff,#0877e9);display:grid;place-items:center;box-shadow:0 0 22px rgba(0,190,255,.35)}
+.logo-mark:before{content:"⚙";font-size:30px;color:white}
+.logo-text{font-size:28px;font-weight:900;letter-spacing:.5px}.logo-text b{color:#fff}.logo-sub{display:block;font-size:7px;letter-spacing:2px;color:#9eb7d2;margin-top:-3px}
+.search{height:42px;flex:1;display:flex;background:#fff;border-radius:9px;overflow:hidden;max-width:650px}
+.search input{flex:1;border:0;outline:0;padding:0 17px;color:#64758d;font-size:13px}
+.search button{width:54px;border:0;background:linear-gradient(180deg,#13b8ff,#078ae8);color:white;font-size:22px;cursor:pointer}
+.actions{margin-left:auto;display:flex;align-items:center;height:100%}.action{padding:0 22px;text-align:center;border-left:1px solid rgba(255,255,255,.2);font-size:11px;font-weight:700}.action span{display:block;font-size:23px;line-height:25px;margin-bottom:2px}.action small{background:#0ba8ff;border-radius:8px;padding:1px 5px;font-size:8px;position:absolute;margin-top:-28px}
+.nav{height:39px;background:#07356a;color:#fff}.nav .inner{height:100%;display:flex;align-items:center;gap:18px}
+.catalog{height:39px;padding:0 17px;background:linear-gradient(180deg,#11b3fb,#078be5);border-radius:0 0 7px 7px;font-weight:800;font-size:13px;display:flex;align-items:center;gap:9px}.nav a{font-size:12px;font-weight:700;padding:0 17px}
+.hero{height:278px;background:linear-gradient(90deg,#041b38 0%,#062d58 48%,#063b6e 100%);position:relative;overflow:hidden;color:white}
+.hero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 68% 48%,rgba(0,184,255,.18),transparent 35%)}
+.hero-car{position:absolute;right:15%;top:0;height:100%;width:48%;object-fit:cover;object-position:center;opacity:.78;mix-blend-mode:screen;filter:saturate(1.15) contrast(1.08)}
+.hero-inner{position:relative;z-index:2;height:100%;display:flex;align-items:center}
+.hero-copy{width:58%;padding-bottom:7px}.eyebrow{font-size:14px;color:#12c5ff;font-weight:900;letter-spacing:1px;margin-bottom:8px}
+h1{font-size:36px;line-height:1.1;margin:0 0 10px;font-weight:950;letter-spacing:-1px}.accent{color:#04adf5}
+.hero-copy p{font-size:15px;line-height:1.45;margin:0 0 15px;max-width:650px;color:#e7f3ff}
+.findbar{height:59px;width:760px;background:#fff;border-radius:10px;display:flex;align-items:center;color:#213c60;box-shadow:0 8px 28px rgba(0,0,0,.22);overflow:hidden}
+.car-select{width:205px;height:100%;display:flex;align-items:center;gap:10px;padding:0 16px;border-right:1px solid #e0e8f0;font-size:12px;font-weight:800}.car-icon{font-size:23px;color:#0c8ee9}.car-select small{display:block;color:#8a99ac;font-weight:500;margin-top:2px}
+.findbar input{flex:1;border:0;outline:0;padding:0 16px;font-size:12px}.findbar button{height:42px;width:124px;margin-right:10px;border:0;border-radius:8px;background:linear-gradient(180deg,#12b6ff,#078ce9);color:white;font-weight:900;cursor:pointer}
+.features{position:absolute;right:2%;top:30px;width:210px;z-index:2}.feature{display:flex;gap:11px;margin-bottom:15px}.feature i{font-style:normal;color:#00bdff;font-size:27px}.feature strong{font-size:12px}.feature small{display:block;color:#c7def5;font-size:10px;margin-top:2px}
+.section{padding:13px 0 0}.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.section-title h2{font-size:19px;margin:0;font-weight:950}.all{font-size:11px;color:#078fe9;font-weight:800}
+.categories{display:grid;grid-template-columns:repeat(10,1fr);gap:10px}
+.cat{height:137px;border:1px solid #e4edf6;border-radius:9px;background:linear-gradient(180deg,#f6fbff,#eef7ff);box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.18s}.cat:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(17,128,207,.15)}.cat img{width:92px;height:67px;object-fit:cover;border-radius:8px;mix-blend-mode:multiply;margin-bottom:6px}.cat b{font-size:10px}.cat span{font-size:9px;color:#60738d;margin-top:3px}
+.vin{height:102px;margin-top:16px;border-radius:8px;background:linear-gradient(90deg,#062b58,#006fae);color:#fff;display:flex;align-items:center;padding:0 28px;overflow:hidden;position:relative}.vin:after{content:"";position:absolute;right:300px;top:0;width:420px;height:100%;background:radial-gradient(ellipse at center,rgba(0,196,255,.25),transparent 65%)}.vin-badge{border:4px solid #0cc8ff;border-radius:8px;font-weight:950;font-size:25px;padding:7px 9px;margin-right:18px;z-index:1}.vin h3{margin:0;font-size:18px}.vin p{margin:5px 0 0;font-size:12px}.vin-arrow{width:34px;height:34px;border-radius:50%;background:#06baff;display:grid;place-items:center;margin-left:40px;font-weight:900}.vin-stats{margin-left:auto;display:flex;gap:0;z-index:1}.stat{min-width:135px;padding:0 22px;border-left:1px solid rgba(255,255,255,.25)}.stat b{display:block;font-size:13px}.stat small{font-size:9px;color:#c8e7f7}
+.brands{display:flex;align-items:center;justify-content:space-between;height:50px;color:#617188}.brand{font-size:16px;font-weight:900;letter-spacing:-.5px}
+.products{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.product{height:111px;border:1px solid #e7eef6;border-radius:8px;box-shadow:var(--shadow);padding:9px;display:grid;grid-template-columns:82px 1fr;position:relative;background:#fff}.product img{width:78px;height:76px;object-fit:cover;border-radius:7px;mix-blend-mode:multiply}.product .info{padding:2px 2px}.product small{display:block;font-size:8px;color:#74869c}.product h4{font-size:9px;margin:3px 0 7px}.price{font-size:12px;font-weight:950}.heart{position:absolute;right:7px;top:5px;color:#03a9f5;font-size:14px}.cart{position:absolute;right:7px;bottom:7px;background:#069fe9;color:#fff;border-radius:5px;padding:5px 7px;font-size:11px}
+.bottom{margin-top:20px;height:69px;background:linear-gradient(90deg,#07356a,#07457e);color:white}.bottom .inner{height:100%;display:flex;align-items:center;justify-content:space-between}.benefit{display:flex;align-items:center;gap:10px}.benefit i{font-style:normal;font-size:25px;color:#22c5ff}.benefit b{font-size:10px}.benefit small{display:block;color:#b9d5ed;font-size:8px;margin-top:2px}.seller{border:0;border-radius:24px;padding:11px 25px;background:#0caaf4;color:#fff;font-size:10px;font-weight:900}
+.toast{position:fixed;right:20px;bottom:20px;background:#062d58;color:#fff;padding:13px 18px;border-radius:9px;box-shadow:0 10px 30px rgba(0,0,0,.2);display:none;font-size:12px;z-index:20}
+@media(max-width:1000px){.logo{min-width:210px}.actions .action{padding:0 9px}.categories{grid-template-columns:repeat(5,1fr)}.products{grid-template-columns:repeat(3,1fr)}.findbar{width:100%}.hero-copy{width:75%}.features{display:none}.vin-stats{display:none}}
+@media(max-width:650px){.top{height:auto;padding:9px 0}.top .inner{flex-wrap:wrap;gap:8px}.logo{min-width:100%}.search{order:3;max-width:none;width:100%}.actions{display:none}.nav{display:none}.hero{height:350px}.hero-car{right:-25%;width:95%;opacity:.45}.hero-copy{width:100%;padding-top:18px;align-self:flex-start}.hero-copy h1,h1{font-size:29px}.findbar{height:auto;flex-wrap:wrap;padding:8px}.car-select{width:100%;height:44px;border-right:0;border-bottom:1px solid #e0e8f0}.findbar input{height:44px;min-width:0}.findbar button{margin:0;width:100%}.categories{grid-template-columns:repeat(2,1fr)}.cat{height:130px}.vin{height:auto;padding:16px;gap:10px}.vin-arrow{display:none}.brands{overflow:auto;gap:22px}.products{grid-template-columns:repeat(2,1fr)}.product{height:120px}.bottom{height:auto;padding:14px 0}.bottom .inner{flex-wrap:wrap;gap:14px}.benefit:nth-child(n+3){display:none}.seller{margin-left:auto}}
+</style>
+
+<style id="detalio-approved-design">body> :not(#detalioApprovedHome){display:none!important} 
+:root{
+  --d-bg:#06111c;--d-panel:#0c1a28;--d-panel2:#101f2e;--d-blue:#09a9f5;
+  --d-blue2:#087fd0;--d-text:#f5f8fb;--d-muted:#a8b7c8;--d-line:#294154;
+}
+html,body{background:var(--d-bg)!important;color:var(--d-text)!important}
+body{font-family:Arial,Helvetica,sans-serif!important}
+#detalioApprovedHome{display:block!important;background:linear-gradient(180deg,#06111c,#071421 70%,#050e17);min-height:100vh}
+.dh-head{height:74px;background:#071019;border-bottom:1px solid #172a3a;display:flex;align-items:center;justify-content:space-between;padding:0 42px;gap:20px}
+.dh-logo{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:1px;font-size:30px;color:#f6f8fb}
+.dh-gear{width:34px;height:34px;border:7px solid #dfe9f2;border-radius:50%;position:relative;box-sizing:border-box}
+.dh-gear:after{content:"";position:absolute;inset:5px;border:5px solid #079ff0;border-radius:50%}
+.dh-logo b{color:#079ff0}.dh-logo small{display:block;font-size:9px;letter-spacing:4px;color:#b7c3cf;font-weight:700}
+.dh-nav{display:flex;gap:26px;color:#dce6ef;align-items:center;font-size:15px}.dh-nav span{display:flex;gap:8px;align-items:center}
+.dh-hero{min-height:318px;background:linear-gradient(90deg,rgba(2,12,22,.96),rgba(2,12,22,.48)),url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1800&q=85") center/cover;display:flex;align-items:center;padding:45px 5%}
+.dh-hero h1{font-size:43px;line-height:1.08;margin:0 0 12px;max-width:600px}.dh-hero p{font-size:19px;color:#c1ceda;margin:0 0 28px}
+.dh-search{background:#fff;border-radius:18px;padding:8px;display:flex;max-width:920px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.dh-search input{flex:1;border:0;outline:0;padding:17px;font-size:17px;color:#26384b;border-radius:13px}.dh-search button{border:0;background:linear-gradient(135deg,var(--d-blue),#1191e1);color:#fff;border-radius:13px;padding:0 42px;font-size:18px;font-weight:800}
+.dh-section{max-width:1180px;margin:auto;padding:32px 4% 70px}.dh-title{font-size:31px;font-weight:800;margin:0 0 22px}.dh-title:before{content:"";display:inline-block;width:5px;height:30px;background:var(--d-blue);border-radius:5px;margin-right:14px;vertical-align:-4px}
+.dh-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.dh-card{background:linear-gradient(180deg,#0d1d2c,#091724);border:1px solid #30475b;border-radius:16px;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.16);transition:.18s;cursor:pointer}.dh-card:hover{transform:translateY(-3px);border-color:#168fd0}
+.dh-card img{width:100%;height:180px;object-fit:cover;display:block;background:#0a1825}.dh-card .ct{padding:14px 16px 17px}.dh-card .ct strong{font-size:18px}.dh-card .ct div{color:#a8b7c8;margin-top:8px}.dh-arrow{float:right;font-size:26px;color:#d8e6f1}
+.dh-bottom{border-top:1px solid #1d3244;background:#071019;display:flex;justify-content:center;gap:90px;padding:15px 10px;color:#aebdcb}.dh-bottom div{text-align:center}.dh-bottom .active{color:#00a8f5}
+@media(max-width:800px){
+ .dh-head{height:auto;padding:14px 18px}.dh-logo{font-size:24px}.dh-nav span{display:none}.dh-nav:after{content:"♡  🛒  ☰";font-size:25px;color:#e5edf5;letter-spacing:8px}
+ .dh-hero{min-height:285px;padding:34px 20px}.dh-hero h1{font-size:34px}.dh-hero p{font-size:16px}.dh-search{display:block;padding:5px}.dh-search input{width:100%;box-sizing:border-box}.dh-search button{width:100%;height:54px;margin-top:5px}
+ .dh-section{padding:28px 20px 80px}.dh-title{font-size:28px}.dh-cats{grid-template-columns:repeat(2,1fr);gap:14px}.dh-card img{height:130px}.dh-card .ct{padding:10px}.dh-card .ct strong{font-size:16px}.dh-card .ct div{font-size:13px}
+ .dh-bottom{position:fixed;left:0;right:0;bottom:0;z-index:999;gap:0;justify-content:space-around;padding:9px 4px;font-size:12px}
+}
+</style>
+
+<style id="detalio-vehicle-picker">
+.detalio-vehicle-tools{margin-top:14px;max-width:760px}.dvt-title{font-size:14px;font-weight:700;margin:0 0 8px;color:#dce9f4}.dvt-row{display:grid;grid-template-columns:1.2fr 1.4fr .8fr;gap:8px}.dvt-row select,.dvt-vin input{height:46px;border:1px solid #294154;border-radius:8px;background:#0b1a29;color:#f5f8fb;padding:0 12px;font-size:14px;outline:none}.dvt-row select:focus,.dvt-vin input:focus{border-color:#09a9f5}.dvt-vin{display:grid;grid-template-columns:1fr 120px;gap:8px;margin-top:8px}.dvt-vin button{border:0;border-radius:8px;background:#09a9f5;color:#03111b;font-weight:800;cursor:pointer}.dvt-result{display:none;margin-top:9px;padding:10px 12px;border:1px solid #294154;border-radius:8px;background:rgba(8,24,38,.92);font-size:13px}.dvt-result.show{display:block}.dvt-result b{color:#fff}.dvt-status{margin-top:5px;color:#a8b7c8;font-size:12px}.dvt-error{color:#ff9b9b!important}@media(max-width:700px){.dvt-row{grid-template-columns:1fr}.dvt-vin{grid-template-columns:1fr}.dvt-vin button{height:46px}}
+</style>
+
+<style id="detalio-seller-module">
+.dseller-btn{border:1px solid #168fd0;background:linear-gradient(135deg,#09a9f5,#087fd0);color:#fff;border-radius:10px;padding:10px 15px;font-weight:800;cursor:pointer}
+.dseller-section{max-width:1180px;margin:0 auto;padding:0 4% 34px}
+.dseller-banner{background:linear-gradient(135deg,#0c2031,#0a1724);border:1px solid #294154;border-radius:18px;padding:24px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 8px 25px rgba(0,0,0,.16)}
+.dseller-banner h3{margin:0 0 7px;font-size:25px}.dseller-banner p{margin:0;color:#a8b7c8;line-height:1.45}.dseller-points{display:flex;gap:18px;margin-top:14px;flex-wrap:wrap}.dseller-point{color:#dce8f2;font-size:13px}.dseller-point b{color:#09a9f5}
+.dseller-modal{position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:5000;display:none;align-items:center;justify-content:center;padding:18px}.dseller-modal.open{display:flex}
+.dseller-box{width:min(760px,100%);max-height:90vh;overflow:auto;background:#0b1927;border:1px solid #30485c;border-radius:18px;box-shadow:0 20px 70px rgba(0,0,0,.45);padding:24px;color:#f5f8fb}
+.dseller-head{display:flex;justify-content:space-between;gap:15px;align-items:center}.dseller-head h2{margin:0;font-size:27px}.dseller-close{border:0;background:transparent;color:#b9c8d6;font-size:28px;cursor:pointer}
+.dseller-tabs{display:flex;gap:8px;margin:20px 0}.dseller-tab{border:1px solid #294154;background:#101f2e;color:#cbd9e5;padding:9px 13px;border-radius:8px;cursor:pointer}.dseller-tab.active{background:#09a9f5;color:#03111b;font-weight:800}
+.dseller-form{display:grid;grid-template-columns:1fr 1fr;gap:11px}.dseller-form .full{grid-column:1/-1}.dseller-form label{font-size:12px;color:#a8b7c8;display:block;margin-bottom:5px}.dseller-form input,.dseller-form select{width:100%;height:45px;background:#071521;color:#fff;border:1px solid #294154;border-radius:8px;padding:0 11px;outline:none}.dseller-form input:focus,.dseller-form select:focus{border-color:#09a9f5}.dseller-primary{height:45px;border:0;border-radius:8px;background:#09a9f5;color:#03111b;font-weight:900;cursor:pointer;padding:0 20px}
+.dseller-note{font-size:12px;color:#8fa2b5;margin-top:9px}.dseller-dashboard{display:none}.dseller-dashboard.show{display:block}.dseller-register.hide{display:none}
+.dseller-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}.dseller-stat{background:#101f2e;border:1px solid #294154;border-radius:10px;padding:14px}.dseller-stat b{display:block;font-size:20px}.dseller-stat span{font-size:11px;color:#91a5b8}
+.dseller-upload{border:1px dashed #3c6178;border-radius:12px;padding:20px;text-align:center;background:#081623;margin-top:12px}.dseller-upload input{margin-top:10px}.dseller-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:12px}.dseller-table th,.dseller-table td{border-bottom:1px solid #23394b;padding:9px;text-align:left}.dseller-table th{color:#9fb2c3}
+.dseller-success{background:rgba(9,169,245,.1);border:1px solid #155d7d;padding:11px;border-radius:9px;margin-bottom:13px;color:#bfeaff}.dseller-add{margin-top:18px;padding:18px;border:1px solid #294154;border-radius:14px;background:#0a1724}.dseller-add h3{margin:0 0 12px}.dseller-product-form{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.dseller-product-form .full{grid-column:1/-1}.dseller-product-form label{display:block;font-size:12px;color:#9fb2c2;margin-bottom:5px}.dseller-product-form input,.dseller-product-form select{width:100%;box-sizing:border-box;height:42px;border:1px solid #294154;border-radius:8px;background:#0b1a29;color:#f5f8fb;padding:0 10px}.dseller-product-form button{height:44px;border:0;border-radius:9px;background:#09a9f5;color:#03111b;font-weight:800;cursor:pointer;padding:0 18px}
+@media(max-width:700px){.dseller-banner{display:block}.dseller-banner .dseller-btn{margin-top:17px;width:100%}.dseller-form{grid-template-columns:1fr}.dseller-form .full{grid-column:auto}.dseller-stats{grid-template-columns:1fr}.dh-nav{gap:9px}.dseller-nav-label{display:none}}
+</style>
+</head>
+<body>
+<div id="detalioApprovedHome">
+  <header class="dh-head">
+    <div class="dh-logo"><span class="dh-gear"></span><span>DETALI<b>O</b><small>ЗАПЧАСТИНИ ДЛЯ ТВОГО АВТО</small></span></div>
+    <nav class="dh-nav">
+      <span>🚗 Мій авто</span><span>♡</span><span>🛒</span><button class="dseller-btn" id="openSeller">Стати продавцем</button><span>☰</span>
+    </nav>
+  </header>
+  <section class="dh-hero">
+    <div>
+      <h1>Знайди потрібні<br>запчастини швидко</h1>
+      <p>Величезний вибір · Надійні продавці · Вигідні ціни</p>
+      <div class="dh-search">
+        <input id="approvedSearch" placeholder="Пошук за назвою, брендом, артикулом...">
+        <button id="approvedFind">Знайти</button>
+      </div>
+      <div class="detalio-vehicle-tools">
+        <div class="dvt-title">Підібрати запчастини за автомобілем</div>
+        <div class="dvt-row">
+          <select id="dvtMake"><option value="">Оберіть марку</option></select>
+          <select id="dvtModel" disabled><option value="">Оберіть модель</option></select>
+          <select id="dvtYear" disabled><option value="">Рік</option></select>
+        </div>
+        <div class="dvt-vin">
+          <input id="dvtVin" maxlength="17" autocomplete="off" placeholder="Або введіть VIN (17 символів)">
+          <button id="dvtVinBtn" type="button">Знайти VIN</button>
+        </div>
+        <div id="dvtResult" class="dvt-result"></div>
+      </div>
+
+    </div>
+  </section>
+  <section class="dh-section">
+    <h2 class="dh-title">Категорії запчастин</h2>
+    <div class="dh-cats">
+      <div class="dh-card"><img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=900&q=85"><div class="ct"><strong>Двигун</strong><div>245 891 <span class="dh-arrow">›</span></div></div></div>
+      <div class="dh-card"><img src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=900&q=85"><div class="ct"><strong>Гальмівна система</strong><div>184 572 <span class="dh-arrow">›</span></div></div></div>
+      <div class="dh-card"><img src="https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=900&q=85"><div class="ct"><strong>Підвіска</strong><div>162 341 <span class="dh-arrow">›</span></div></div></div>
+      <div class="dh-card"><img src="https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&w=900&q=85"><div class="ct"><strong>Трансмісія</strong><div>108 765 <span class="dh-arrow">›</span></div></div></div>
+      <div class="dh-card"><img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=900&q=85"><div class="ct"><strong>Фільтри</strong><div>96 482 <span class="dh-arrow">›</span></div></div></div>
+      <div class="dh-card"><img src="https://images.unsplash.com/photo-1603712610494-52a9d6d9a9b6?auto=format&fit=crop&w=900&q=85"><div class="ct"><strong>Електрика</strong><div>142 630 <span class="dh-arrow">›</span></div></div></div>
+      <div class="dh-card"><img src="https://images.unsplash.com/photo-1599256872237-5dcc0fbe0f9a?auto=format&fit=crop&w=900&q=85"><div class="ct"><strong>Система охолодження</strong><div>83 417 <span class="dh-arrow">›</span></div></div></div>
+      <div class="dh-card"><img src="https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=900&q=85"><div class="ct"><strong>Кузовні деталі</strong><div>120 965 <span class="dh-arrow">›</span></div></div></div>
+      <div class="dh-card"><img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=85"><div class="ct"><strong>Шини та диски</strong><div>76 354 <span class="dh-arrow">›</span></div></div></div>
+      <div class="dh-card"><img src="https://images.unsplash.com/photo-1635784063001-4a0b9c8b0e77?auto=format&fit=crop&w=900&q=85"><div class="ct"><strong>Олива та рідини</strong><div>58 721 <span class="dh-arrow">›</span></div></div></div>
+    </div>
+  </section>
+  
+<section class="dseller-section">
+  <div class="dseller-banner">
+    <div>
+      <h3>Продавайте автозапчастини на DETALIO</h3>
+      <p>Підключіть свій магазин та отримуйте нових клієнтів з пошуку за VIN, маркою, моделлю та артикулом.</p>
+      <div class="dseller-points">
+        <span class="dseller-point">✓ <b>Безкоштовний старт</b></span>
+        <span class="dseller-point">✓ Завантаження прайсу</span>
+        <span class="dseller-point">✓ Кабінет продавця</span>
+        <span class="dseller-point">✓ Пошук клієнтами за VIN</span>
+      </div>
+    </div>
+    <button class="dseller-btn" id="openSeller2">Додати магазин →</button>
+  </div>
+</section>
+
+<div class="dseller-modal" id="sellerModal">
+  <div class="dseller-box">
+    <div class="dseller-head"><h2>Кабінет продавця DETALIO</h2><button class="dseller-close" id="closeSeller">×</button></div>
+    <div class="dseller-tabs">
+      <button class="dseller-tab active" id="tabRegister">Реєстрація магазину</button>
+      <button class="dseller-tab" id="tabDashboard">Мій магазин</button>
+    </div>
+    <div class="dseller-register" id="sellerRegister">
+      <div class="dseller-success">🎁 <b>Стартова програма:</b> першим продавцям — безкоштовне розміщення на старті DETALIO.</div>
+      <div class="dseller-form">
+        <div><label>Назва магазину *</label><input id="sellerName" placeholder="Наприклад: AutoParts Центр"></div>
+        <div><label>Телефон *</label><input id="sellerPhone" placeholder="+380..."></div>
+        <div><label>Місто</label><input id="sellerCity" placeholder="Київ"></div>
+        <div><label>Тип продавця</label><select id="sellerType"><option>Магазин автозапчастин</option><option>Авторазборка</option><option>Оптовий постачальник</option><option>СТО</option><option>Приватний продавець</option></select></div>
+        <div class="full"><label>Категорії</label><input id="sellerCategories" placeholder="Наприклад: BMW, VAG, кузовні, двигун..."></div>
+        <div class="full"><label>Email</label><input id="sellerEmail" type="email" placeholder="shop@example.com"></div>
+        <div class="full"><button class="dseller-primary" id="sellerCreate">Створити кабінет продавця</button></div>
+      </div>
+      <div class="dseller-note">Поки це демо-кабінет: дані зберігаються у браузері. Наступним етапом підключимо реєстрацію до бази даних.</div>
+    </div>
+    <div class="dseller-dashboard" id="sellerDashboard">
+      <div id="sellerWelcome"></div>
+      <div class="dseller-stats"><div class="dseller-stat"><b id="sellerProducts">0</b><span>товарів у каталозі</span></div><div class="dseller-stat"><b>0</b><span>замовлень</span></div><div class="dseller-stat"><b>0</b><span>переглядів</span></div></div>
+      <div class="dseller-add">
+        <h3>➕ Додати запчастину в каталог</h3>
+        <div class="dseller-product-form">
+          <div><label>Марка *</label><select id="spMake"><option value="">Оберіть марку</option></select></div>
+          <div><label>Модель *</label><select id="spModel" disabled><option value="">Оберіть модель</option></select></div>
+          <div><label>Рік</label><select id="spYear"><option value="">Усі роки</option></select></div>
+          <div><label>Назва запчастини *</label><input id="spName" placeholder="Наприклад: Гальмівні колодки передні"></div>
+          <div><label>Артикул *</label><input id="spArticle" placeholder="0986479123"></div>
+          <div><label>Бренд</label><input id="spBrand" placeholder="Bosch"></div>
+          <div><label>Ціна, грн *</label><input id="spPrice" type="number" min="0" placeholder="850"></div>
+          <div><label>Залишок, шт.</label><input id="spStock" type="number" min="0" value="1"></div>
+          <div><label>Категорія</label><input id="spCategory" placeholder="Гальмівна система"></div>
+          <div class="full"><button type="button" id="spAdd">Додати в каталог DETALIO</button></div>
+        </div>
+      </div>
+      <div class="dseller-upload">
+        <b>Масове завантаження прайсу</b>
+        <div class="dseller-note">CSV/TXT: назва, артикул, бренд, ціна, залишок. Для повної прив'язки до авто краще використовувати форму вище.</div>
+        <input type="file" id="sellerFile" accept=".csv,.txt">
+        <div id="sellerFileStatus" class="dseller-note"></div>
+      </div>
+      <table class="dseller-table"><thead><tr><th>Назва</th><th>Авто</th><th>Артикул</th><th>Ціна</th><th>Залишок</th></tr></thead><tbody id="sellerRows"><tr><td colspan="5">Каталог ще порожній</td></tr></tbody></table>
+    </div>
+  </div>
+</div>
+<footer class="dh-bottom"><div class="active">⌂<br>Головна</div><div>🚗<br>Мій авто</div><div>⌕<br>Пошук</div><div>♡<br>Обране</div><div>♙<br>Профіль</div></footer>
+</div>
+
+<header class="top">
+ <div class="container inner">
+  <div class="logo"><div class="logo-mark">⚙</div><div><div class="logo-text">DETALIO</div><span class="logo-sub">АВТОЗАПЧАСТИ БЕЗ ПОСЕРЕДНИКІВ</span></div></div>
+  <div class="search"><input id="topSearch" placeholder="Пошук за назвою, брендом, артикулом або VIN"><button onclick="doSearch()">⌕</button></div>
+  <div class="actions">
+   <div class="action"><span>🚗</span>VIN підбір</div><div class="action"><span>♡</span>Обране</div><div class="action"><span>♙</span>Увійти</div><div class="action"><span>🛒</span>Кошик<small id="cartCount">0</small></div>
+  </div>
+ </div>
+</header>
+<nav class="nav"><div class="container inner"><div class="catalog">☰ &nbsp;Каталог запчастин⌄</div><a>Бренди</a><a>Продавці</a><a>Доставка і оплата</a><a>Допомога</a></div></nav>
+
+<section class="hero">
+ <img class="hero-car" src="assets/hero-car.jpg">
+ <div class="container hero-inner">
+  <div class="hero-copy">
+   <div class="eyebrow">НАЙБІЛЬШИЙ МАРКЕТПЛЕЙС АВТОЗАПЧАСТИН</div>
+   <h1>Знайди потрібну деталь<br>для свого авто на <span class="accent">DETALIO</span></h1>
+   <p>Тисячі продавців, мільйони запчастин, вигідні ціни, швидка доставка.<br>Все, що потрібно — в одному місці.</p>
+   <div class="findbar">
+    <div class="car-select"><span class="car-icon">🚗</span><div>Виберіть авто<small>або введіть VIN</small></div><span style="margin-left:auto">⌄</span></div>
+    <input id="heroSearch" placeholder="Пошук за назвою, брендом, артикулом...">
+    <button onclick="doSearch()">Знайти</button>
+   </div>
+  </div>
+  <div class="features">
+   <div class="feature"><i>♢</i><div><strong>Перевірені продавці</strong><small>Тільки надійні постачальники</small></div></div>
+   <div class="feature"><i>▣</i><div><strong>Швидка доставка</strong><small>По всій Україні</small></div></div>
+   <div class="feature"><i>♢</i><div><strong>Гарантія на запчастини</strong><small>Від продавців</small></div></div>
+   <div class="feature"><i>◉</i><div><strong>Підтримка 24/7</strong><small>Завжди на зв’язку</small></div></div>
+  </div>
+ </div>
+</section>
+
+<main class="container">
+<section class="section">
+ <div class="section-title"><h2>Категорії запчастин</h2><a class="all">Всі категорії →</a></div>
+ <div class="categories">
+  <div class="cat" onclick="cat('Двигун')"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20360%20260%22%3E%0A%20%20%20%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23eaf7ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ccecff%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%22360%22%20height%3D%22260%22%20rx%3D%2222%22%20fill%3D%22url%28%23g%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23168ed3%22%20stroke-width%3D%229%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%2295%22%20y%3D%2275%22%20width%3D%22170%22%20height%3D%2295%22%20rx%3D%2218%22/%3E%3Ccircle%20cx%3D%22135%22%20cy%3D%22122%22%20r%3D%2218%22/%3E%3Ccircle%20cx%3D%22225%22%20cy%3D%22122%22%20r%3D%2218%22/%3E%3Cpath%20d%3D%22M75%2095h20M265%2095h35M110%20170v30M245%20170v30%22/%3E%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%22180%22%20y%3D%22238%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23123b72%22%3E%D0%94%D0%B2%D0%B8%D0%B3%D1%83%D0%BD%3C/text%3E%0A%20%20%20%20%3C/svg%3E"><b>Двигун</b><span>245 891</span></div>
+  <div class="cat" onclick="cat('Гальмівна система')"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20360%20260%22%3E%0A%20%20%20%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23eaf7ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ccecff%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%22360%22%20height%3D%22260%22%20rx%3D%2222%22%20fill%3D%22url%28%23g%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23168ed3%22%20stroke-width%3D%229%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22120%22%20r%3D%2278%22/%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22120%22%20r%3D%2232%22/%3E%3Crect%20x%3D%22245%22%20y%3D%2275%22%20width%3D%2235%22%20height%3D%2290%22%20rx%3D%228%22/%3E%3Cpath%20d%3D%22M100%20120h45M215%20120h45%22/%3E%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%22180%22%20y%3D%22238%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23123b72%22%3E%D0%93%D0%B0%D0%BB%D1%8C%D0%BC%D1%96%D0%B2%D0%BD%D0%B0%20%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0%3C/text%3E%0A%20%20%20%20%3C/svg%3E"><b>Гальмівна система</b><span>184 572</span></div>
+  <div class="cat" onclick="cat('Підвіска')"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20360%20260%22%3E%0A%20%20%20%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23eaf7ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ccecff%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%22360%22%20height%3D%22260%22%20rx%3D%2222%22%20fill%3D%22url%28%23g%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23168ed3%22%20stroke-width%3D%229%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M105%2055v170M255%2055v170%22/%3E%3Cpath%20d%3D%22M120%2065c70%2035-70%2070%200%20105s-70%2070%200%20105M240%2065c-70%2035%2070%2070%200%20105s70%2070%200%20105%22/%3E%3Ccircle%20cx%3D%22105%22%20cy%3D%2255%22%20r%3D%2212%22/%3E%3Ccircle%20cx%3D%22255%22%20cy%3D%2255%22%20r%3D%2212%22/%3E%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%22180%22%20y%3D%22238%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23123b72%22%3E%D0%9F%D1%96%D0%B4%D0%B2%D1%96%D1%81%D0%BA%D0%B0%3C/text%3E%0A%20%20%20%20%3C/svg%3E"><b>Підвіска</b><span>162 341</span></div>
+  <div class="cat" onclick="cat('Трансмісія')"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20360%20260%22%3E%0A%20%20%20%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23eaf7ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ccecff%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%22360%22%20height%3D%22260%22%20rx%3D%2222%22%20fill%3D%22url%28%23g%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23168ed3%22%20stroke-width%3D%229%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M75%20105h210v70H75z%22/%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22140%22%20r%3D%2224%22/%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22140%22%20r%3D%2224%22/%3E%3Ccircle%20cx%3D%22240%22%20cy%3D%22140%22%20r%3D%2224%22/%3E%3Cpath%20d%3D%22M180%2070v35M180%20175v35%22/%3E%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%22180%22%20y%3D%22238%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23123b72%22%3E%D0%A2%D1%80%D0%B0%D0%BD%D1%81%D0%BC%D1%96%D1%81%D1%96%D1%8F%3C/text%3E%0A%20%20%20%20%3C/svg%3E"><b>Трансмісія</b><span>108 765</span></div>
+  <div class="cat" onclick="cat('Фільтри')"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20360%20260%22%3E%0A%20%20%20%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23eaf7ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ccecff%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%22360%22%20height%3D%22260%22%20rx%3D%2222%22%20fill%3D%22url%28%23g%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23168ed3%22%20stroke-width%3D%229%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M105%2070h150l-18%20150H123z%22/%3E%3Cpath%20d%3D%22M125%2095h110M122%20120h116M119%20145h122M116%20170h128%22/%3E%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%22180%22%20y%3D%22238%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23123b72%22%3E%D0%A4%D1%96%D0%BB%D1%8C%D1%82%D1%80%D0%B8%3C/text%3E%0A%20%20%20%20%3C/svg%3E"><b>Фільтри</b><span>96 482</span></div>
+  <div class="cat" onclick="cat('Електрика')"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20360%20260%22%3E%0A%20%20%20%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23eaf7ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ccecff%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%22360%22%20height%3D%22260%22%20rx%3D%2222%22%20fill%3D%22url%28%23g%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23168ed3%22%20stroke-width%3D%229%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M195%2055l-80%20105h58l-18%2085%2080-115h-58z%22/%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22135%22%20r%3D%2292%22/%3E%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%22180%22%20y%3D%22238%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23123b72%22%3E%D0%95%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%B8%D0%BA%D0%B0%3C/text%3E%0A%20%20%20%20%3C/svg%3E"><b>Електрика</b><span>142 630</span></div>
+  <div class="cat" onclick="cat('Охолодження')"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20360%20260%22%3E%0A%20%20%20%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23eaf7ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ccecff%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%22360%22%20height%3D%22260%22%20rx%3D%2222%22%20fill%3D%22url%28%23g%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23168ed3%22%20stroke-width%3D%229%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%2285%22%20y%3D%2260%22%20width%3D%22190%22%20height%3D%22150%22%20rx%3D%2212%22/%3E%3Cpath%20d%3D%22M105%2080v110M125%2080v110M145%2080v110M165%2080v110M185%2080v110M205%2080v110M225%2080v110M245%2080v110M265%2080v110%22/%3E%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%22180%22%20y%3D%22238%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23123b72%22%3E%D0%9E%D1%85%D0%BE%D0%BB%D0%BE%D0%B4%D0%B6%D0%B5%D0%BD%D0%BD%D1%8F%3C/text%3E%0A%20%20%20%20%3C/svg%3E"><b>Система охолодження</b><span>83 417</span></div>
+  <div class="cat" onclick="cat('Кузов')"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20360%20260%22%3E%0A%20%20%20%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23eaf7ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ccecff%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%22360%22%20height%3D%22260%22%20rx%3D%2222%22%20fill%3D%22url%28%23g%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23168ed3%22%20stroke-width%3D%229%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M65%20165l28-55%2055-20h70l55%2020%2032%2055v35H65z%22/%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22200%22%20r%3D%2225%22/%3E%3Ccircle%20cx%3D%22260%22%20cy%3D%22200%22%20r%3D%2225%22/%3E%3Cpath%20d%3D%22M135%2095l20-5h50l20%205%22/%3E%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%22180%22%20y%3D%22238%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23123b72%22%3E%D0%9A%D1%83%D0%B7%D0%BE%D0%B2%3C/text%3E%0A%20%20%20%20%3C/svg%3E"><b>Кузовні деталі</b><span>120 965</span></div>
+  <div class="cat" onclick="cat('Шини')"><img src="assets/cat-tires.jpg"><b>Шини та диски</b><span>67 203</span></div>
+  <div class="cat" onclick="cat('Оливи')"><img src="assets/cat-fluids.jpg"><b>Оливи та рідини</b><span>41 528</span></div>
+ </div>
+</section>
+
+<section class="vin">
+ <div class="vin-badge">VIN</div><div><h3>Підбір запчастин за VIN</h3><p>Точний підбір для вашого авто за 1 хвилину</p></div><div class="vin-arrow">→</div>
+ <div class="vin-stats"><div class="stat"><b>🚗 &nbsp;Понад 50 000</b><small>моделей авто</small></div><div class="stat"><b>⚙ &nbsp;Більше 10 млн</b><small>запчастин</small></div><div class="stat"><b>♢ &nbsp;100%</b><small>точність підбору</small></div></div>
+</section>
+
+<section class="section"><div class="section-title"><h2>Популярні бренди</h2><a class="all">Всі бренди →</a></div>
+ <div class="brands"><span class="brand">◉ BOSCH</span><span class="brand">MANN<br>FILTER</span><span class="brand">SKF</span><span class="brand">Valeo</span><span class="brand">KYB</span><span class="brand">◉ brembo</span><span class="brand">NGK</span><span class="brand">DENSO</span><span class="brand">LUK</span><span class="brand">SACHS</span><span class="brand">TRW</span><span class="brand">febi</span><span class="brand">Continental</span></div>
+</section>
+
+<section class="section"><div class="section-title"><h2>Популярні товари</h2><a class="all">Всі товари →</a></div>
+ <div class="products">
+  <div class="product"><div style="font-size:48px">◉</div><div class="info"><small>BOSCH</small><h4>Гальмівні колодки</h4><div class="price">1 850 грн</div></div><span class="heart">♡</span><button class="cart" onclick="addCart()">🛒</button></div>
+  <div class="product"><div style="font-size:48px">◉</div><div class="info"><small>MANN-FILTER</small><h4>Масляний фільтр</h4><div class="price">320 грн</div></div><span class="heart">♡</span><button class="cart" onclick="addCart()">🛒</button></div>
+  <div class="product"><div style="font-size:48px">╱╲</div><div class="info"><small>KYB</small><h4>Амортизатор</h4><div class="price">2 480 грн</div></div><span class="heart">♡</span><button class="cart" onclick="addCart()">🛒</button></div>
+  <div class="product"><div style="font-size:48px">⚡</div><div class="info"><small>NGK</small><h4>Свічка запалювання</h4><div class="price">450 грн</div></div><span class="heart">♡</span><button class="cart" onclick="addCart()">🛒</button></div>
+  <div class="product"><div style="font-size:48px">▭</div><div class="info"><small>MANN-FILTER</small><h4>Повітряний фільтр</h4><div class="price">620 грн</div></div><span class="heart">♡</span><button class="cart" onclick="addCart()">🛒</button></div>
+  <div class="product"><div style="font-size:48px">◉</div><div class="info"><small>BREMBO</small><h4>Гальмівний диск</h4><div class="price">2 750 грн</div></div><span class="heart">♡</span><button class="cart" onclick="addCart()">🛒</button></div>
+ </div>
+</section>
+</main>
+
+<footer class="bottom"><div class="container inner">
+ <div class="benefit"><i>▣</i><div><b>Швидка доставка</b><small>По всій Україні</small></div></div>
+ <div class="benefit"><i>♢</i><div><b>Гарантія якості</b><small>На всі товари</small></div></div>
+ <div class="benefit"><i>%</i><div><b>Вигідні ціни</b><small>Від прямих постачальників</small></div></div>
+ <div class="benefit"><i>♙</i><div><b>Понад 5 000 продавців</b><small>Обирай найкращі пропозиції</small></div></div>
+ <button class="seller" onclick="toast('Форма продавця буде підключена на наступному етапі')">Стати продавцем →</button>
+</div></footer>
+<div id="toast" class="toast"></div>
+<script>
+let cart=0;
+function addCart(){cart++;document.getElementById('cartCount').textContent=cart;toast('Запчастину додано до кошика');}
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(window.tt);window.tt=setTimeout(()=>e.style.display='none',1800);}
+function doSearch(){const q=(document.getElementById('heroSearch').value||document.getElementById('topSearch').value).trim();toast(q?`Пошук: ${q}`:'Введіть VIN, артикул або назву запчастини');}
+function cat(c){toast(`Категорія: ${c}`);}
+</script>
+
+<script>
+/* DETALIO — ЕТАП 1: стабільний ланцюжок
+   Авто -> запчастина -> пошук.
+   Інші модулі поки не використовуємо.
+*/
+(function(){
+  const catalog = [
+    {brand:"Bosch", name:"Гальмівні колодки передні", article:"0986479123", makes:["BMW","Audi","Volkswagen","Mercedes-Benz"], category:"Гальмівна система", price:850},
+    {brand:"Mann", name:"Повітряний фільтр", article:"C30005", makes:["BMW","Audi","Volkswagen","Mercedes-Benz","Toyota"], category:"Фільтри", price:620},
+    {brand:"Mahle", name:"Масляний фільтр", article:"OC384", makes:["BMW","Audi","Volkswagen","Mercedes-Benz","Toyota","Ford"], category:"Фільтри", price:390},
+    {brand:"SKF", name:"Ступичний підшипник", article:"VKBA1234", makes:["BMW","Audi","Volkswagen","Ford","Toyota"], category:"Ходова", price:1450},
+    {brand:"NGK", name:"Свічки запалювання", article:"BKR6E", makes:["Toyota","Honda","Nissan","Hyundai","Kia"], category:"Запалювання", price:540},
+    {brand:"Valeo", name:"Комплект зчеплення", article:"826577", makes:["Volkswagen","Renault","Peugeot","Citroen","Ford"], category:"Зчеплення", price:4200},
+    {brand:"Febi", name:"Сайлентблок переднього важеля", article:"102345", makes:["BMW","Mercedes-Benz","Volkswagen","Audi"], category:"Ходова", price:780},
+    {brand:"Denso", name:"Котушка запалювання", article:"099700123", makes:["Toyota","Lexus","Honda","Mazda"], category:"Запалювання", price:1850}
+  ];
+
+  const vehicles = {
+    "BMW":["3 Series","5 Series","X3","X5"],
+    "Audi":["A4","A6","Q5","Q7"],
+    "Volkswagen":["Golf","Passat","Tiguan","Touareg"],
+    "Mercedes-Benz":["C-Class","E-Class","GLC","GLE"],
+    "Toyota":["Camry","Corolla","RAV4","Land Cruiser"],
+    "Ford":["Focus","Mondeo","Kuga","Transit"],
+    "Honda":["Civic","Accord","CR-V"],
+    "Nissan":["Qashqai","X-Trail","Leaf"],
+    "Hyundai":["Elantra","Sonata","Tucson"],
+    "Kia":["Ceed","Sportage","Sorento"],
+    "Renault":["Megane","Laguna","Duster"],
+    "Peugeot":["308","508","3008"],
+    "Citroen":["C4","C5","C3"],
+    "Mazda":["3","6","CX-5"],
+    "Lexus":["IS","ES","RX","NX"]
+  };
+
+  window.detalioVehicles=db;
+
+  function $(s){return document.querySelector(s)}
+  function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+
+  function findControls(){
+    const selects=[...document.querySelectorAll("select")];
+    const search=[...document.querySelectorAll('input')].find(x=>/пошук|запчаст|part|search/i.test(x.placeholder||x.name||""));
+    return {selects,search};
+  }
+
+  function buildStage1(){
+    // Prefer existing vehicle selectors if present; otherwise create a clean Stage 1 block.
+    let host = document.querySelector("#stage1Search");
+    if(!host){
+      host=document.createElement("section");
+      host.id="stage1Search";
+      host.innerHTML=`
+        <div style="max-width:1180px;margin:24px auto;padding:24px;background:#fff;border-radius:20px;box-shadow:0 8px 30px rgba(0,60,130,.08)">
+          <h2 style="margin:0 0 8px;color:#123b72">Знайдіть потрібну запчастину</h2>
+          <p style="margin:0 0 18px;color:#64748b">Етап 1: оберіть автомобіль та введіть назву або артикул.</p>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+            <select id="s1Make"><option value="">Марка</option></select>
+            <select id="s1Model" disabled><option value="">Модель</option></select>
+            <select id="s1Year"><option value="">Рік</option></select>
+            <select id="s1Engine"><option value="">Двигун</option></select>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:12px">
+            <input id="s1Query" style="flex:1;padding:14px;border:1px solid #dbe4ef;border-radius:12px" placeholder="Наприклад: гальмівні колодки або 0986479123">
+            <button id="s1Find" style="padding:0 26px;border:0;border-radius:12px;background:#f28b22;color:white;font-weight:700;cursor:pointer">Знайти запчастини</button>
+          </div>
+          <div id="s1Results" style="margin-top:20px"></div>
+        </div>`;
+      const root=document.body;
+      root.appendChild(host);
+    }
+
+    const make=$("#s1Make"), model=$("#s1Model"), year=$("#s1Year"), engine=$("#s1Engine"), query=$("#s1Query"), btn=$("#s1Find"), results=$("#s1Results");
+    if(!make||!model||!year||!engine||!query||!btn||!results) return;
+
+    Object.keys(vehicles).forEach(m=>make.insertAdjacentHTML("beforeend",`<option>${esc(m)}</option>`));
+    for(let y=2026;y>=1990;y--) year.insertAdjacentHTML("beforeend",`<option>${y}</option>`);
+    ["Бензин","Дизель","Гібрид","Електро"].forEach(e=>engine.insertAdjacentHTML("beforeend",`<option>${e}</option>`));
+
+    make.addEventListener("change",()=>{
+      model.innerHTML='<option value="">Модель</option>';
+      (vehicles[make.value]||[]).forEach(m=>model.insertAdjacentHTML("beforeend",`<option>${esc(m)}</option>`));
+      model.disabled=!make.value;
+    });
+
+    btn.addEventListener("click",()=>{
+      const q=query.value.trim().toLowerCase();
+      const selectedMake=make.value;
+      if(!selectedMake){results.innerHTML='<div style="padding:14px;background:#fff3cd;border-radius:10px">Спочатку оберіть марку автомобіля.</div>';return;}
+      if(!q){results.innerHTML='<div style="padding:14px;background:#fff3cd;border-radius:10px">Введіть назву запчастини або артикул.</div>';return;}
+      const selectedModel=model.value;
+      const selectedYear=year.value;
+      const base=catalog.map(p=>({brand:p.brand,name:p.name,article:p.article,makes:p.makes,models:[],year:'',category:p.category,price:p.price,stock:p.stock??1,seller:'DETALIO'}));
+      const sellerProducts=JSON.parse(localStorage.getItem('detalioSellerProducts')||'[]').map(p=>({brand:p.brand||'—',name:p.name,article:p.article,makes:[p.make],models:[p.model],year:p.year,category:p.category||'Автозапчастини',price:p.price,stock:p.stock,seller:p.seller}));
+      const all=base.concat(sellerProducts);
+      const found=all.filter(p=>p.makes.includes(selectedMake) && (!selectedModel || !p.models.length || p.models.includes(selectedModel)) && (!selectedYear || !p.year || String(p.year)===String(selectedYear)) && (p.name.toLowerCase().includes(q)||p.article.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q)));
+      results.innerHTML=found.length?found.map(p=>`
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:15px;padding:16px;margin-top:10px;border:1px solid #e5edf7;border-radius:14px">
+          <div><b>${esc(p.name)}</b><div style="color:#64748b">${esc(p.brand)} · ${esc(p.article)} · ${esc(p.category)}</div><div style="color:#64748b;font-size:12px;margin-top:4px">Продавець: <b>${esc(p.seller||'DETALIO')}</b> · В наявності: ${esc(p.stock??1)} шт.</div></div>
+          <strong style="white-space:nowrap">${Number(p.price||0).toLocaleString("uk-UA")} грн</strong>
+        </div>`).join(""):'<div style="padding:16px;background:#f8fafc;border-radius:12px">Для цього автомобіля запчастину не знайдено.</div>';
+    });
+  }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",buildStage1);
+  else buildStage1();
+})();
+</script>
+
+
+<style>
+#detalioVisualGallery{max-width:1180px;margin:24px auto;padding:24px;background:#fff;border-radius:20px;box-shadow:0 8px 30px rgba(0,60,130,.08)}
+.dvg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.dvg-card{overflow:hidden;border:1px solid #e5edf7;border-radius:16px;background:#f8fbff}
+.dvg-card img{width:100%;height:150px;object-fit:cover;display:block}
+.dvg-card div{padding:12px;font-weight:700;color:#123b72}
+@media(max-width:800px){.dvg-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+<section id="detalioVisualGallery">
+<h2 style="margin:0 0 6px;color:#123b72">Візуалізація запчастин</h2>
+<p style="margin:0 0 18px;color:#64748b">Фото деталей для швидкої орієнтації перед вибором.</p>
+<div class="dvg-grid">
+<div class="dvg-card"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20360%20260%22%3E%0A%20%20%20%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23eaf7ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ccecff%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%22360%22%20height%3D%22260%22%20rx%3D%2222%22%20fill%3D%22url%28%23g%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23168ed3%22%20stroke-width%3D%229%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%2295%22%20y%3D%2275%22%20width%3D%22170%22%20height%3D%2295%22%20rx%3D%2218%22/%3E%3Ccircle%20cx%3D%22135%22%20cy%3D%22122%22%20r%3D%2218%22/%3E%3Ccircle%20cx%3D%22225%22%20cy%3D%22122%22%20r%3D%2218%22/%3E%3Cpath%20d%3D%22M75%2095h20M265%2095h35M110%20170v30M245%20170v30%22/%3E%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%22180%22%20y%3D%22238%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23123b72%22%3E%D0%94%D0%B2%D0%B8%D0%B3%D1%83%D0%BD%3C/text%3E%0A%20%20%20%20%3C/svg%3E" alt="Автозапчастини"><div>Гальмівна система</div></div>
+<div class="dvg-card"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20360%20260%22%3E%0A%20%20%20%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23eaf7ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ccecff%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%22360%22%20height%3D%22260%22%20rx%3D%2222%22%20fill%3D%22url%28%23g%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23168ed3%22%20stroke-width%3D%229%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M105%2070h150l-18%20150H123z%22/%3E%3Cpath%20d%3D%22M125%2095h110M122%20120h116M119%20145h122M116%20170h128%22/%3E%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%22180%22%20y%3D%22238%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23123b72%22%3E%D0%A4%D1%96%D0%BB%D1%8C%D1%82%D1%80%D0%B8%3C/text%3E%0A%20%20%20%20%3C/svg%3E" alt="Двигун"><div>Двигун та фільтри</div></div>
+<div class="dvg-card"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20360%20260%22%3E%0A%20%20%20%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23eaf7ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ccecff%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%22360%22%20height%3D%22260%22%20rx%3D%2222%22%20fill%3D%22url%28%23g%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23168ed3%22%20stroke-width%3D%229%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M105%2055v170M255%2055v170%22/%3E%3Cpath%20d%3D%22M120%2065c70%2035-70%2070%200%20105s-70%2070%200%20105M240%2065c-70%2035%2070%2070%200%20105s70%2070%200%20105%22/%3E%3Ccircle%20cx%3D%22105%22%20cy%3D%2255%22%20r%3D%2212%22/%3E%3Ccircle%20cx%3D%22255%22%20cy%3D%2255%22%20r%3D%2212%22/%3E%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%22180%22%20y%3D%22238%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23123b72%22%3E%D0%9F%D1%96%D0%B4%D0%B2%D1%96%D1%81%D0%BA%D0%B0%3C/text%3E%0A%20%20%20%20%3C/svg%3E" alt="Колесо автомобіля"><div>Ходова частина</div></div>
+<div class="dvg-card"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20360%20260%22%3E%0A%20%20%20%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23eaf7ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ccecff%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%22360%22%20height%3D%22260%22%20rx%3D%2222%22%20fill%3D%22url%28%23g%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23168ed3%22%20stroke-width%3D%229%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M65%20165l28-55%2055-20h70l55%2020%2032%2055v35H65z%22/%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22200%22%20r%3D%2225%22/%3E%3Ccircle%20cx%3D%22260%22%20cy%3D%22200%22%20r%3D%2225%22/%3E%3Cpath%20d%3D%22M135%2095l20-5h50l20%205%22/%3E%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%22180%22%20y%3D%22238%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23123b72%22%3E%D0%9A%D1%83%D0%B7%D0%BE%D0%B2%3C/text%3E%0A%20%20%20%20%3C/svg%3E" alt="Автомобіль"><div>Кузов та оптика</div></div>
+</div>
+</section>
+
+
+<script>
+(function(){
+ const b=document.getElementById("approvedFind"),i=document.getElementById("approvedSearch");
+ if(b)b.onclick=function(){
+   const q=(i.value||"").trim();
+   if(!q){i.focus();return;}
+   const old=[...document.querySelectorAll('input')].find(x=>x!==i && /пошук|запчаст|part|search/i.test((x.placeholder||"")));
+   if(old){old.value=q; const ob=old.closest("form")?.querySelector("button"); if(ob)ob.click();}
+ };
+})();
+</script>
+
+<script id="detalio-vehicle-picker-js">
+(function(){
+const db={
+"Acura":["ILX","Integra","MDX","RDX","TLX"],"Alfa Romeo":["Giulia","Stelvio","Tonale"],"Audi":["A3","A4","A5","A6","A7","A8","Q3","Q5","Q7","Q8"],"BMW":["1 Series","2 Series","3 Series","4 Series","5 Series","7 Series","X1","X3","X5","X7"],"Chevrolet":["Aveo","Cruze","Malibu","Captiva","Equinox","Tahoe"],"Chrysler":["300","Pacifica","Voyager"],"Citroen":["C3","C4","C5 Aircross","Berlingo","Jumpy"],"Dacia":["Logan","Sandero","Duster","Jogger"],"Daewoo":["Lanos","Nexia","Matiz"],"Daihatsu":["Terios","Sirion","Cuore"],"Dodge":["Challenger","Charger","Durango","Journey","Ram"],"Fiat":["500","Panda","Punto","Tipo","Ducato"],"Ford":["Fiesta","Focus","Mondeo","Kuga","Edge","Explorer","Transit"],"Genesis":["G70","G80","G90","GV70","GV80"],"GMC":["Terrain","Acadia","Yukon"],"Honda":["Civic","Accord","CR-V","HR-V","Pilot","Jazz"],"Hyundai":["Accent","Elantra","i30","Sonata","Tucson","Santa Fe","Kona"],"Infiniti":["Q30","Q50","QX50","QX60","QX70"],"Isuzu":["D-Max","MU-X"],"Jaguar":["XE","XF","F-Pace","E-Pace"],"Jeep":["Renegade","Compass","Cherokee","Grand Cherokee","Wrangler"],"Kia":["Rio","Ceed","Cerato","Optima","K5","Sportage","Sorento","Stinger"],"Lada":["Granta","Vesta","Niva","Priora","Kalina"],"Land Rover":["Defender","Discovery","Discovery Sport","Range Rover","Range Rover Sport","Evoque"],"Lexus":["IS","ES","NX","RX","GX","LX"],"Mazda":["2","3","6","CX-3","CX-5","CX-9"],"Mercedes-Benz":["A-Class","C-Class","E-Class","S-Class","GLA","GLC","GLE","GLS","Sprinter"],"Mini":["Cooper","Clubman","Countryman"],"Mitsubishi":["Colt","Lancer","ASX","Outlander","Pajero"],"Nissan":["Micra","Juke","Qashqai","X-Trail","Navara","Leaf"],"Opel":["Corsa","Astra","Insignia","Mokka","Grandland","Zafira"],"Peugeot":["208","308","508","2008","3008","5008","Partner"],"Porsche":["911","Cayenne","Macan","Panamera","Taycan"],"Renault":["Clio","Megane","Laguna","Captur","Kadjar","Koleos","Master"],"Seat":["Ibiza","Leon","Ateca","Tarraco"],"Skoda":["Fabia","Octavia","Superb","Karoq","Kodiaq","Scala"],"Smart":["Fortwo","Forfour"],"Subaru":["Impreza","Legacy","Outback","Forester","Tribeca","XV"],"Suzuki":["Swift","Vitara","S-Cross","Jimny","SX4"],"Tesla":["Model 3","Model S","Model X","Model Y"],"Toyota":["Yaris","Corolla","Camry","Avensis","RAV4","Highlander","Land Cruiser","Prius"],"UAZ":["Hunter","Patriot","Profi"],"Volkswagen":["Polo","Golf","Passat","Jetta","Tiguan","Touareg","Transporter"],"Volvo":["S60","S90","V60","XC40","XC60","XC90"],"ЗАЗ":["Sens","Lanos","Forza","Vida"]};
+const make=document.getElementById('dvtMake'),model=document.getElementById('dvtModel'),year=document.getElementById('dvtYear'),vin=document.getElementById('dvtVin'),vinBtn=document.getElementById('dvtVinBtn'),result=document.getElementById('dvtResult');
+if(!make)return;
+Object.keys(db).sort((a,b)=>a.localeCompare(b,'uk')).forEach(x=>make.add(new Option(x,x)));
+function years(){year.innerHTML='<option value="">Рік</option>';for(let y=new Date().getFullYear();y>=1980;y--)year.add(new Option(y,y));year.disabled=false}
+make.onchange=function(){model.innerHTML='<option value="">Оберіть модель</option>';year.innerHTML='<option value="">Рік</option>';year.disabled=true;result.classList.remove('show');if(!this.value){model.disabled=true;return}db[this.value].forEach(x=>model.add(new Option(x,x)));model.disabled=false};
+model.onchange=function(){year.innerHTML='<option value="">Рік</option>';result.classList.remove('show');if(this.value)years()};
+year.onchange=function(){if(make.value&&model.value&&year.value)show(make.value+' '+model.value+' '+year.value+' рік')};
+function show(txt){result.innerHTML='<b>Обрано автомобіль:</b> '+txt+'<div class="dvt-status">Тепер пошук запчастин можна виконувати саме для цієї модифікації.</div>';result.classList.add('show')}
+vin.addEventListener('input',()=>{vin.value=vin.value.toUpperCase().replace(/[^A-HJ-NPR-Z0-9]/g,'').slice(0,17);result.classList.remove('show')});
+vinBtn.onclick=async function(){const v=vin.value.trim().toUpperCase();if(v.length!==17){result.innerHTML='<b class="dvt-error">VIN має містити рівно 17 символів.</b>';result.classList.add('show');return}vinBtn.disabled=true;vinBtn.textContent='Пошук...';result.innerHTML='<b>Розшифровую VIN:</b> '+v+'<div class="dvt-status">Отримую дані автомобіля…</div>';result.classList.add('show');try{const res=await fetch('https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/'+encodeURIComponent(v)+'?format=json');if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json();const rows=Array.isArray(data.Results)?data.Results:[];const d=rows.find(x=>x.Make||x.Model||x.ModelYear)||{};const mk=String(d.Make||'').trim(),mo=String(d.Model||'').trim(),yr=String(d.ModelYear||'').trim();if(!mk&&!mo&&!yr)throw new Error('not found');
+const findOption=(sel,val)=>[...sel.options].find(o=>o.value.trim().toLowerCase()===String(val).trim().toLowerCase());
+if(mk){let opt=findOption(make,mk);if(!opt){opt=new Option(mk,mk);make.add(opt)}make.value=opt.value;make.dispatchEvent(new Event('change'));}
+if(mo){let mop=findOption(model,mo);if(!mop){mop=new Option(mo,mo);model.add(mop)}model.value=mop.value;model.disabled=false;}
+if(yr){year.innerHTML='<option value="">Рік</option>';year.add(new Option(yr,yr));year.value=yr;year.disabled=false;}
+const extra=[d.Trim,d.EngineModel,d.EngineCylinders?d.EngineCylinders+' цил.':'',d.DisplacementL?d.DisplacementL+' л':'',d.FuelTypePrimary,d.DriveType].filter(Boolean).join(' · ');result.innerHTML='<b>Автомобіль знайдено:</b> '+[mk,mo,yr].filter(Boolean).join(' ')+'<div class="dvt-status">'+(extra||'Дані автомобіля отримано')+'</div><div class="dvt-status">VIN: '+v+'</div>';result.classList.add('show');}catch(e){result.innerHTML='<b class="dvt-error">Не вдалося розшифрувати VIN.</b><div class="dvt-status">Перевір VIN або спробуй ще раз. Якщо VIN є американським, декодер NHTSA має повернути марку, модель і рік.</div>';result.classList.add('show')}finally{vinBtn.disabled=false;vinBtn.textContent='Знайти VIN'}};
+})();
+</script>
+
+<script id="detalio-seller-js">
+(function(){
+ const $=id=>document.getElementById(id);
+ const modal=$('sellerModal'), reg=$('sellerRegister'), dash=$('sellerDashboard'), tabR=$('tabRegister'), tabD=$('tabDashboard');
+ const db=window.detalioVehicles||{};
+ function open(){modal.classList.add('open'); const seller=JSON.parse(localStorage.getItem('detalioSeller')||'null'); if(seller) showDash(seller); else showReg();}
+ function close(){modal.classList.remove('open')}
+ function showReg(){reg.classList.remove('hide');dash.classList.remove('show');tabR.classList.add('active');tabD.classList.remove('active')}
+ function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+ function getProducts(){return JSON.parse(localStorage.getItem('detalioSellerProducts')||'[]')}
+ function saveProducts(rows){localStorage.setItem('detalioSellerProducts',JSON.stringify(rows))}
+ function initProductForm(){
+   const make=$('spMake'),model=$('spModel'),year=$('spYear'); if(!make)return;
+   if(make.options.length===1){Object.keys(db).forEach(m=>make.insertAdjacentHTML('beforeend',`<option>${esc(m)}</option>`));for(let y=2026;y>=1990;y--)year.insertAdjacentHTML('beforeend',`<option>${y}</option>`)}
+   make.onchange=()=>{model.innerHTML='<option value="">Оберіть модель</option>';(db[make.value]||[]).forEach(m=>model.insertAdjacentHTML('beforeend',`<option>${esc(m)}</option>`));model.disabled=!make.value};
+ }
+ function showDash(seller){reg.classList.add('hide');dash.classList.add('show');tabR.classList.remove('active');tabD.classList.add('active');$('sellerWelcome').innerHTML='<div class="dseller-success">🏪 <b>'+esc(seller.name)+'</b> — кабінет активний. '+esc(seller.city||'')+'</div>';initProductForm();renderRows();}
+ function renderRows(){
+   const rows=getProducts();$('sellerProducts').textContent=rows.length;
+   $('sellerRows').innerHTML=rows.length?rows.slice(0,50).map(r=>`<tr><td>${esc(r.name)}</td><td>${esc([r.make,r.model,r.year].filter(Boolean).join(' ')||'—')}</td><td>${esc(r.article||'—')}</td><td>${esc(r.price||'—')} грн</td><td>${esc(r.stock??'—')}</td></tr>`).join(''):'<tr><td colspan="5">Каталог ще порожній</td></tr>';
+ }
+ ['openSeller','openSeller2'].forEach(id=>$(id)?.addEventListener('click',open));
+ $('closeSeller').addEventListener('click',close); modal.addEventListener('click',e=>{if(e.target===modal)close()});
+ tabR.addEventListener('click',showReg); tabD.addEventListener('click',()=>{const seller=JSON.parse(localStorage.getItem('detalioSeller')||'null');if(seller)showDash(seller);else open()});
+ $('sellerCreate').addEventListener('click',()=>{const name=$('sellerName').value.trim(),phone=$('sellerPhone').value.trim();if(!name||!phone){toast('Вкажіть назву магазину та телефон');return}const seller={name,phone,city:$('sellerCity').value.trim(),type:$('sellerType').value,categories:$('sellerCategories').value.trim(),email:$('sellerEmail').value.trim()};localStorage.setItem('detalioSeller',JSON.stringify(seller));showDash(seller);toast('Кабінет продавця створено')});
+ $('spAdd').addEventListener('click',()=>{const seller=JSON.parse(localStorage.getItem('detalioSeller')||'null');if(!seller){toast('Спочатку створіть кабінет продавця');return}const p={id:Date.now(),seller:seller.name,make:$('spMake').value,model:$('spModel').value,year:$('spYear').value,name:$('spName').value.trim(),article:$('spArticle').value.trim(),brand:$('spBrand').value.trim(),price:Number($('spPrice').value),stock:Number($('spStock').value||0),category:$('spCategory').value.trim()};if(!p.make||!p.model||!p.name||!p.article||!p.price){toast('Заповніть марку, модель, назву, артикул і ціну');return}const rows=getProducts();rows.push(p);saveProducts(rows);['spName','spArticle','spBrand','spPrice','spCategory'].forEach(id=>$(id).value='');$('spStock').value='1';renderRows();toast('Запчастину додано в каталог DETALIO')});
+ $('sellerFile').addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;const reader=new FileReader();reader.onload=()=>{const lines=String(reader.result).split(/\r?\n/).map(x=>x.trim()).filter(Boolean);const header=lines[0]?.toLowerCase()||'';const rows=(header.includes('назва')?lines.slice(1):lines).map(x=>x.split(/[;,\t]/).map(v=>v.trim())).filter(r=>r.length>=2);const seller=JSON.parse(localStorage.getItem('detalioSeller')||'null');const products=getProducts();rows.forEach(r=>products.push({id:Date.now()+Math.random(),seller:seller?.name||'Продавець',make:'',model:'',year:'',name:r[0]||'',article:r[1]||'',brand:r[2]||'',price:Number(String(r[3]||'').replace(',','.'))||0,stock:Number(r[4]||0),category:''}));saveProducts(products);$('sellerFileStatus').textContent='Додано позицій: '+rows.length;renderRows();toast('Прайс додано до каталогу')};reader.readAsText(f)});
+ window.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+})();
+</script>
+</body></html>
